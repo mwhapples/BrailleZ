@@ -17,7 +17,7 @@ To build BrailleZephyr:
 
 To build and run BrailleZephyr:
 ```
-./mvnw exec:exec
+./mvnw package exec:exec
 ```
 
 To clean the distribution:
