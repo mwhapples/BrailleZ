@@ -292,9 +292,8 @@ public final class BZSettings extends BZBase {
             return false;
         }
 
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(file));
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
             String line;
             int lineNumber = 1;
             while ((line = reader.readLine()) != null) {
@@ -311,13 +310,6 @@ public final class BZSettings extends BZBase {
             logError("Unable to open settings file for reading", exception);
         } catch (IOException exception) {
             logError("Unable to read settings file", exception);
-        } finally {
-            try {
-                if (reader != null)
-                    reader.close();
-            } catch (IOException exception) {
-                logError("Unable to close settings file", exception);
-            }
         }
 
         return true;
