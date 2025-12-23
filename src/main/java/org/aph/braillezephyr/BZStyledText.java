@@ -94,8 +94,9 @@ public class BZStyledText {
         String version = getClass().getPackage().getImplementationVersion();
 
         //   version from build file
-        if (version == null)
+        if (version == null) {
             version = System.getProperty("braillezephyr.version");
+        }
 
         //   no version
         if (version == null) {
@@ -104,7 +105,7 @@ public class BZStyledText {
         }
 
         versionString = version;
-        String[] versionStrings = versionString.split("\\.");
+        String[] versionStrings = versionString.split("-")[0].split("\\.");
         versionMajor = Integer.parseInt(versionStrings[0]);
         if (versionStrings.length > 1)
             versionMinor = Integer.parseInt(versionStrings[1]);

@@ -13,7 +13,6 @@
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <swt.version>3.132.0</swt.version>
-        <extra-exec-args></extra-exec-args>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -53,6 +52,7 @@
                     <archive>
                         <manifest>
                             <mainClass>org.aph.braillezephyr.Main</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                     </archive>
                 </configuration>
@@ -70,6 +70,7 @@
                 <configuration>
                     <executable>java</executable>
                     <arguments>
+                        <argument>-Dbraillezephyr.version=${project.version}</argument>
                         <argument>--enable-native-access=ALL-UNNAMED</argument>
                         <argument>-classpath</argument>
                         <classpath/>
@@ -102,6 +103,7 @@
                         <configuration>
                             <executable>java</executable>
                             <arguments>
+                                <argument>-Dbraillezephyr.version=${project.version}</argument>
                                 <argument>-XstartOnFirstThread</argument>
                                 <argument>--enable-native-access=ALL-UNNAMED</argument>
                                 <argument>-classpath</argument>

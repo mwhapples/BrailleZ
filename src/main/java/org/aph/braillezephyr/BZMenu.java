@@ -723,8 +723,9 @@ public final class BZMenu extends BZBase {
             dialog.setText("About BrailleZephyr");
 
             String versionString = bzStyledText.getVersionString();
-            if (versionString == null)
+            if (versionString == null) {
                 versionString = "dev";
+            }
 
             Label label;
 
