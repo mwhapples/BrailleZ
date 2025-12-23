@@ -135,12 +135,8 @@ public class BZStyledText {
         loadFont("BrailleZephyr_8wsb.otf");
 
         //   load line margin bell
-        try {
-            InputStream inputStreamBellMargin = new BufferedInputStream(getClass().getResourceAsStream("/sounds/line_margin_bell.wav"));
-            AudioInputStream audioInputStreamMargin = AudioSystem.getAudioInputStream(inputStreamBellMargin);
-            DataLine.Info dataLineInfoMargin = new DataLine.Info(Clip.class, audioInputStreamMargin.getFormat());
-            lineMarginClip = (Clip) AudioSystem.getLine(dataLineInfoMargin);
-            lineMarginClip.open(audioInputStreamMargin);
+        try(InputStream inputStreamBellMargin = getClass().getResourceAsStream("/sounds/line_margin_bell.wav")) {
+            lineMarginClip = loadClip(inputStreamBellMargin);
         } catch (IOException exception) {
             logWriter.println("ERROR:  Unable to read default line margin bell file:  " + exception.getMessage());
             lineMarginClip = null;
@@ -153,12 +149,8 @@ public class BZStyledText {
         }
 
         //   load page margin bell
-        try {
-            InputStream inputStreamBellPage = new BufferedInputStream(getClass().getResourceAsStream("/sounds/page_margin_bell.wav"));
-            AudioInputStream audioInputStreamPage = AudioSystem.getAudioInputStream(inputStreamBellPage);
-            DataLine.Info dataLineInfoPage = new DataLine.Info(Clip.class, audioInputStreamPage.getFormat());
-            pageMarginClip = (Clip) AudioSystem.getLine(dataLineInfoPage);
-            pageMarginClip.open(audioInputStreamPage);
+        try(InputStream inputStreamBellPage = getClass().getResourceAsStream("/sounds/page_margin_bell.wav")) {
+            pageMarginClip = loadClip(inputStreamBellPage);
         } catch (IOException exception) {
             logWriter.println("ERROR:  Unable to read default page margin bell file:  " + exception.getMessage());
             pageMarginClip = null;
@@ -171,12 +163,8 @@ public class BZStyledText {
         }
 
         //   load line end bell
-        try {
-            InputStream inputStreamBellPage = new BufferedInputStream(getClass().getResourceAsStream("/sounds/line_end_bell.wav"));
-            AudioInputStream audioInputStreamPage = AudioSystem.getAudioInputStream(inputStreamBellPage);
-            DataLine.Info dataLineInfoPage = new DataLine.Info(Clip.class, audioInputStreamPage.getFormat());
-            lineEndClip = (Clip) AudioSystem.getLine(dataLineInfoPage);
-            lineEndClip.open(audioInputStreamPage);
+        try(InputStream inputStreamBellPage = getClass().getResourceAsStream("/sounds/line_end_bell.wav")) {
+            lineEndClip = loadClip(inputStreamBellPage);
         } catch (IOException exception) {
             logWriter.println("ERROR:  Unable to read default line end bell file:  " + exception.getMessage());
             lineEndClip = null;
@@ -394,8 +382,9 @@ public class BZStyledText {
             throw exception;
         }
         lineMarginFileName = fileName;
-        if (clip != null)
+        if (clip != null) {
             clip.close();
+        }
     }
 
     /**
@@ -470,8 +459,9 @@ public class BZStyledText {
             throw exception;
         }
         pageMarginFileName = fileName;
-        if (clip != null)
+        if (clip != null) {
             clip.close();
+        }
     }
 
     /**
@@ -503,8 +493,9 @@ public class BZStyledText {
             throw exception;
         }
         lineEndFileName = fileName;
-        if (clip != null)
+        if (clip != null) {
             clip.close();
+        }
     }
 
     /**
@@ -1468,6 +1459,14 @@ public class BZStyledText {
             if (lineCount != prevLineCount)
                 redraw();
             prevLineCount = lineCount;
+        }
+    }
+    private static Clip loadClip(InputStream stream) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        try(AudioInputStream audioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(new BufferedInputStream(stream)))) {
+            DataLine.Info lineInfo = new DataLine.Info(Clip.class, audioStream.getFormat());
+            Clip clip = (Clip) AudioSystem.getLine(lineInfo);
+            clip.open(audioStream);
+            return clip;
         }
     }
 }
