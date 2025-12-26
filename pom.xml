@@ -12,7 +12,7 @@
     <organization>
         <name>Michael Whapples</name>
     </organization>
-    <url>https://github.com/mwhapples/BrailleZephyr</url>
+    <url>https://mwhapples.github.io/BrailleZephyr</url>
     <scm>
         <connection>scm:git:https://github.com/mwhapples/BrailleZephyr.git</connection>
         <developerConnection>scm:git:https://github.com/mwhapples/BrailleZephyr.git</developerConnection>
