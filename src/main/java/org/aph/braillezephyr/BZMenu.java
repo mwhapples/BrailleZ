@@ -749,7 +749,7 @@ public final class BZMenu extends BZBase {
             label = new Label(dialog, SWT.CENTER);
             label.setLayoutData(new GridData(GridData.FILL_BOTH));
             label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
-            label.setText("Copyright © 2015 American Printing House for the Blind Inc.");
+            label.setText("Copyright © 2025 Michael Whapples.\nCopyright © 2015 American Printing House for the Blind Inc.");
 
             dialog.pack();
             dialog.open();
