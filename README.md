@@ -1,6 +1,7 @@
 # BrailleZephyr
 
 BrailleZephyr is a simple Braille Ready File (BRF) editor
+* Runs on Windows, Mac or Linux.
 * Six key entry and display using the F D S and J K L keys.
 * ASCII Braille entry and display.
 * Ability to set page width (cells across) and depth (lines down).
@@ -8,6 +9,10 @@ BrailleZephyr is a simple Braille Ready File (BRF) editor
 * Bell warning for end of line.
 * Bell warning for end of page.
 * Can save files in Braille ready file format or in BrailleZephyr format.
+
+## Getting BrailleZephyr
+
+You can download binary builds of BrailleZephyr from the [download page](https://mwhapples.github.io/BrailleZephyr/download.html). If your platform does not have a binary build, there is a chance you may be able to build your own copy, see the below instructions for building.
 
 ## Licence
 
