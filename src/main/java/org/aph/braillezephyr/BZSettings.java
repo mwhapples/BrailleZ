@@ -368,16 +368,6 @@ public final class BZSettings extends BZBase {
     }
 
     boolean writeSettings() {
-        try {
-            if (!file.exists()) {
-                logMessage("Creating settings file:  " + file.getPath());
-                file.createNewFile();
-            }
-        } catch (IOException exception) {
-            logError("Unable to create settings file", exception);
-            return false;
-        }
-
         try (PrintWriter writer = new PrintWriter(file)) {
             writeLines(writer);
         } catch (FileNotFoundException exception) {
