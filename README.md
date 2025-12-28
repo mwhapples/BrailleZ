@@ -16,7 +16,7 @@ You can download binary builds of BrailleZephyr from the [download page](https:/
 
 ## Licence
 
-BrailleZephyr is licenced under the Apache 2.0 license.  A copy of the license is included with the software.  For details see the file LICENSE-2.0.txt.
+BrailleZephyr is licenced under the Apache 2.0 license.  A copy of the license is included with the software.  For details see the file LICENSE.txt.
 
 The BrailleZephyr fonts are licensed under the SIL Open Font License 1.1. A copy of the license is included with the software.  For details see the file OFL.txt.
 
