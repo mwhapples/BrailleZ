@@ -136,7 +136,7 @@ public class BZStyledText {
         loadFont("BrailleZephyr_8wsb.otf");
 
         //   load line margin bell
-        try(InputStream inputStreamBellMargin = getClass().getResourceAsStream("/sounds/line_margin_bell.wav")) {
+        try (InputStream inputStreamBellMargin = getClass().getResourceAsStream("/sounds/line_margin_bell.wav")) {
             lineMarginClip = loadClip(inputStreamBellMargin);
         } catch (IOException exception) {
             logWriter.println("ERROR:  Unable to read default line margin bell file:  " + exception.getMessage());
@@ -150,7 +150,7 @@ public class BZStyledText {
         }
 
         //   load page margin bell
-        try(InputStream inputStreamBellPage = getClass().getResourceAsStream("/sounds/page_margin_bell.wav")) {
+        try (InputStream inputStreamBellPage = getClass().getResourceAsStream("/sounds/page_margin_bell.wav")) {
             pageMarginClip = loadClip(inputStreamBellPage);
         } catch (IOException exception) {
             logWriter.println("ERROR:  Unable to read default page margin bell file:  " + exception.getMessage());
@@ -164,7 +164,7 @@ public class BZStyledText {
         }
 
         //   load line end bell
-        try(InputStream inputStreamBellPage = getClass().getResourceAsStream("/sounds/line_end_bell.wav")) {
+        try (InputStream inputStreamBellPage = getClass().getResourceAsStream("/sounds/line_end_bell.wav")) {
             lineEndClip = loadClip(inputStreamBellPage);
         } catch (IOException exception) {
             logWriter.println("ERROR:  Unable to read default line end bell file:  " + exception.getMessage());
@@ -360,19 +360,15 @@ public class BZStyledText {
      * margin bell.
      *
      * @param fileName the name of the file to load
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws UnsupportedAudioFileException
-     * @throws LineUnavailableException
      * @see #getLineMarginFileName()
      * </p>
      */
-    public void loadLineMarginFileName(String fileName) throws FileNotFoundException,
+    public void loadLineMarginFileName(String fileName) throws
             IOException,
             UnsupportedAudioFileException,
             LineUnavailableException {
         Clip clip = lineMarginClip;
-        try(InputStream inputStream = Files.newInputStream(Path.of(fileName))) {
+        try (InputStream inputStream = Files.newInputStream(Path.of(fileName))) {
             lineMarginClip = loadClip(inputStream);
         }
         lineMarginFileName = fileName;
@@ -430,19 +426,14 @@ public class BZStyledText {
      * margin bell.
      *
      * @param fileName the name of the file to load
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws UnsupportedAudioFileException
-     * @throws LineUnavailableException
-     * @see #getPageMarginFileName()
-     * </p>
+     *                 </p>
      */
-    public void loadPageMarginFileName(String fileName) throws FileNotFoundException,
+    public void loadPageMarginFileName(String fileName) throws
             IOException,
             UnsupportedAudioFileException,
             LineUnavailableException {
         Clip clip = pageMarginClip;
-        try(InputStream inputStream = Files.newInputStream(Path.of(fileName))) {
+        try (InputStream inputStream = Files.newInputStream(Path.of(fileName))) {
             pageMarginClip = loadClip(inputStream);
         }
         pageMarginFileName = fileName;
@@ -457,19 +448,15 @@ public class BZStyledText {
      * bell.
      *
      * @param fileName the name of the file to load
-     * @throws FileNotFoundException
-     * @throws IOException
-     * @throws UnsupportedAudioFileException
-     * @throws LineUnavailableException
      * @see #getLineEndFileName()
      * </p>
      */
-    public void loadLineEndFileName(String fileName) throws FileNotFoundException,
+    public void loadLineEndFileName(String fileName) throws
             IOException,
             UnsupportedAudioFileException,
             LineUnavailableException {
         Clip clip = lineEndClip;
-        try(InputStream inputStream = Files.newInputStream(Path.of(fileName))) {
+        try (InputStream inputStream = Files.newInputStream(Path.of(fileName))) {
             lineEndClip = loadClip(inputStream);
         }
         lineEndFileName = fileName;
@@ -733,7 +720,6 @@ public class BZStyledText {
      * </p>
      *
      * @param reader the reader stream from which to read the data.
-     * @throws IOException
      * @see #writeBRF(Writer)
      */
     public void readBRF(Reader reader) throws IOException {
@@ -799,7 +785,6 @@ public class BZStyledText {
      * </p>
      *
      * @param writer the writer stream to write the data.
-     * @throws IOException
      * @see #readBRF(Reader)
      */
     public void writeBRF(Writer writer) throws IOException {
@@ -832,7 +817,6 @@ public class BZStyledText {
      * </p>
      *
      * @param reader the reader stream from which to read the data.
-     * @throws IOException
      * @see #writeBZY(Writer)
      */
     public void readBZY(Reader reader) throws IOException, BZException {
@@ -927,7 +911,6 @@ public class BZStyledText {
      * </p>
      *
      * @param writer the writer stream to write the data.
-     * @throws IOException
      * @see #readBZY(Reader)
      */
     public void writeBZY(Writer writer) throws IOException {
@@ -987,53 +970,53 @@ public class BZStyledText {
         StringBuilder stringBuilder = new StringBuilder(charsPerLine * 3);
 
         for (int i = content.getLineAtOffset(currentText.getCaretOffset()); i < content.getLineCount(); i++) {
-            String line = content.getLine(i);
-            if (line.isEmpty())
-                continue;
+            final String line = content.getLine(i);
+            if (!line.isEmpty()) {
+                if (line.length() > charsPerLine) {
+                    //   line too long
+                    int wordWrap, wordEnd;
 
-            //   line too long
-            if (line.length() > charsPerLine) {
-                int wordWrap, wordEnd;
-
-                //   find beginning of word being wrapped
-                if (line.charAt(charsPerLine) != ' ') {
-                    for (wordWrap = charsPerLine; wordWrap > charsPerLine / 2; wordWrap--)
-                        if (line.charAt(wordWrap) == ' ')
-                            break;
-                    if (wordWrap == charsPerLine / 2)
-                        continue;
-                    wordWrap++;
-                } else {
-                    for (wordWrap = charsPerLine; wordWrap < line.length(); wordWrap++)
-                        if (line.charAt(wordWrap) != ' ')
-                            break;
-                    if (wordWrap == line.length())
-                        continue;
-                }
-
-                //   find end of word before word being wrapped
-                for (wordEnd = wordWrap - 1; wordEnd > charsPerLine / 4; wordEnd--)
-                    if (line.charAt(wordEnd) != ' ')
-                        break;
-                if (wordEnd == charsPerLine / 4)
-                    continue;
-                wordEnd++;
-
-                //   build replacement text
-                int length = line.length();
-                stringBuilder.setLength(0);
-                stringBuilder.append(line, 0, wordEnd).append(eol).append(line, wordWrap, length);
-                if (length > 0 && line.charAt(length - 1) != PARAGRAPH_END) {
-                    if (i < content.getLineCount() - 1) {
-                        String next = content.getLine(i + 1);
-                        stringBuilder.append(' ').append(next);
-                        length += eol.length() + next.length();
+                    //   find beginning of word being wrapped
+                    if (line.charAt(charsPerLine) != ' ') {
+                        for (wordWrap = charsPerLine; wordWrap > charsPerLine / 2; wordWrap--)
+                            if (line.charAt(wordWrap) == ' ')
+                                break;
+                        if (wordWrap == charsPerLine / 2)
+                            continue;
+                        wordWrap++;
+                    } else {
+                        for (wordWrap = charsPerLine; wordWrap < line.length(); wordWrap++)
+                            if (line.charAt(wordWrap) != ' ')
+                                break;
+                        if (wordWrap == line.length())
+                            continue;
                     }
-                }
 
-                content.replaceTextRange(content.getOffsetAtLine(i), length, stringBuilder.toString());
-            } else if (!line.isEmpty() && line.charAt(line.length() - 1) == PARAGRAPH_END)
-                break;
+                    //   find end of word before word being wrapped
+                    for (wordEnd = wordWrap - 1; wordEnd > charsPerLine / 4; wordEnd--)
+                        if (line.charAt(wordEnd) != ' ')
+                            break;
+                    if (wordEnd == charsPerLine / 4)
+                        continue;
+                    wordEnd++;
+
+                    //   build replacement text
+                    int length = line.length();
+                    stringBuilder.setLength(0);
+                    stringBuilder.append(line, 0, wordEnd).append(eol).append(line, wordWrap, length);
+                    if (line.charAt(length - 1) != PARAGRAPH_END) {
+                        if (i < content.getLineCount() - 1) {
+                            String next = content.getLine(i + 1);
+                            stringBuilder.append(' ').append(next);
+                            length += eol.length() + next.length();
+                        }
+                    }
+
+                    content.replaceTextRange(content.getOffsetAtLine(i), length, stringBuilder.toString());
+                } else if (line.charAt(line.length() - 1) == PARAGRAPH_END) {
+                    break;
+                }
+            }
         }
 
         clearChanges();
@@ -1441,8 +1424,9 @@ public class BZStyledText {
             prevLineCount = lineCount;
         }
     }
+
     private static Clip loadClip(InputStream stream) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        try(AudioInputStream audioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(new BufferedInputStream(stream)))) {
+        try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(new BufferedInputStream(stream)))) {
             DataLine.Info lineInfo = new DataLine.Info(Clip.class, audioStream.getFormat());
             Clip clip = (Clip) AudioSystem.getLine(lineInfo);
             clip.open(audioStream);
