@@ -16,8 +16,6 @@
 package org.aph.braillezephyr;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -27,14 +25,12 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -422,65 +418,10 @@ public final class BZMenu extends BZBase {
 
         @Override
         public void widgetSelected(SelectionEvent ignored) {
-            new LinesPerPageDialog(parentShell);
-        }
-    }
-
-    private final class LinesPerPageDialog implements SelectionListener, KeyListener {
-        private final Shell shell;
-        private final Button okButton;
-        private final Spinner spinner;
-
-        private LinesPerPageDialog(Shell parentShell) {
-            shell = new Shell(parentShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-            shell.setText("Lines per Page");
-            shell.setLayout(new GridLayout(3, true));
-
-            spinner = new Spinner(shell, 0);
-            spinner.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            spinner.setValues(bzStyledText.getLinesPerPage(), 0, 225, 0, 1, 10);
-            spinner.addKeyListener(this);
-
-            okButton = new Button(shell, SWT.PUSH);
-            okButton.setText("OK");
-            okButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            okButton.addSelectionListener(this);
-
-            Button cancelButton = new Button(shell, SWT.PUSH);
-            cancelButton.setText("Cancel");
-            cancelButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            cancelButton.addSelectionListener(this);
-
-            shell.pack();
-            shell.open();
-        }
-
-        private void setLinesPerPage() {
-            bzStyledText.setLinesPerPage(spinner.getSelection());
-            bzStyledText.redraw();
-        }
-
-        @Override
-        public void widgetSelected(SelectionEvent event) {
-            if (event.widget == okButton)
-                setLinesPerPage();
-            shell.dispose();
-        }
-
-        @Override
-        public void widgetDefaultSelected(SelectionEvent ignored) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent event) {
-            if (event.keyCode == '\r' || event.keyCode == '\n') {
-                setLinesPerPage();
-                shell.dispose();
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent ignored) {
+            new SpinnerDialog(parentShell, "Lines per Page", bzStyledText.getLinesPerPage(), 0, 255, i -> {
+                bzStyledText.setLinesPerPage(i);
+                bzStyledText.redraw();
+            });
         }
     }
 
@@ -493,66 +434,10 @@ public final class BZMenu extends BZBase {
 
         @Override
         public void widgetSelected(SelectionEvent ignored) {
-            new CharsPerLineDialog(parentShell);
-        }
-    }
-
-    private final class CharsPerLineDialog implements SelectionListener, KeyListener {
-        private final Shell shell;
-        private final Button okButton;
-        private final Spinner spinner;
-
-        private CharsPerLineDialog(Shell parentShell) {
-            shell = new Shell(parentShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-            shell.setText("Characters Per Line");
-            shell.setLayout(new GridLayout(3, true));
-
-            spinner = new Spinner(shell, 0);
-            spinner.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            spinner.setValues(bzStyledText.getCharsPerLine(), 0, 27720, 0, 1, 10);
-            spinner.addKeyListener(this);
-
-            okButton = new Button(shell, SWT.PUSH);
-            okButton.setText("OK");
-            okButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            okButton.addSelectionListener(this);
-
-            Button cancelButton = new Button(shell, SWT.PUSH);
-            cancelButton.setText("Cancel");
-            cancelButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            cancelButton.addSelectionListener(this);
-
-            shell.pack();
-            shell.open();
-        }
-
-        private void setCharsPerLine() {
-            bzStyledText.setCharsPerLine(spinner.getSelection());
-            bzStyledText.redraw();
-        }
-
-        @Override
-        public void widgetSelected(SelectionEvent event) {
-            if (event.widget == okButton)
-                setCharsPerLine();
-            shell.dispose();
-        }
-
-        @Override
-        public void widgetDefaultSelected(SelectionEvent ignored) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent event) {
-            //TODO:  is the \r necessary?
-            if (event.keyCode == '\r' || event.keyCode == '\n') {
-                setCharsPerLine();
-                shell.dispose();
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent ignored) {
+            new SpinnerDialog(parentShell, "Characters Per Line", bzStyledText.getCharsPerLine(), 0, 27720, i -> {
+                bzStyledText.setCharsPerLine(i);
+                bzStyledText.redraw();
+            });
         }
     }
 
@@ -565,64 +450,7 @@ public final class BZMenu extends BZBase {
 
         @Override
         public void widgetSelected(SelectionEvent ignored) {
-            new LineMarginBellDialog(parentShell);
-        }
-    }
-
-    private final class LineMarginBellDialog implements SelectionListener, KeyListener {
-        private final Shell shell;
-        private final Button okButton;
-        private final Spinner spinner;
-
-        private LineMarginBellDialog(Shell parentShell) {
-            shell = new Shell(parentShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-            shell.setText("Bell Margin");
-            shell.setLayout(new GridLayout(3, true));
-
-            spinner = new Spinner(shell, 0);
-            spinner.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            spinner.setValues(bzStyledText.getLineMarginBell(), 0, 27720, 0, 1, 10);
-            spinner.addKeyListener(this);
-
-            okButton = new Button(shell, SWT.PUSH);
-            okButton.setText("OK");
-            okButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            okButton.addSelectionListener(this);
-
-            Button cancelButton = new Button(shell, SWT.PUSH);
-            cancelButton.setText("Cancel");
-            cancelButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            cancelButton.addSelectionListener(this);
-
-            shell.pack();
-            shell.open();
-        }
-
-        private void setBellLineMargin() {
-            bzStyledText.setLineMarginBell(spinner.getSelection());
-        }
-
-        @Override
-        public void widgetSelected(SelectionEvent event) {
-            if (event.widget == okButton)
-                setBellLineMargin();
-            shell.dispose();
-        }
-
-        @Override
-        public void widgetDefaultSelected(SelectionEvent ignored) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent event) {
-            if (event.keyCode == '\r' || event.keyCode == '\n') {
-                setBellLineMargin();
-                shell.dispose();
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent ignored) {
+            new SpinnerDialog(parentShell, "Bell Margin", bzStyledText.getLineMarginBell(), 0, 27720, bzStyledText::setLineMarginBell);
         }
     }
 
@@ -635,64 +463,7 @@ public final class BZMenu extends BZBase {
 
         @Override
         public void widgetSelected(SelectionEvent ignored) {
-            new PageMarginBellDialog(parentShell);
-        }
-    }
-
-    private final class PageMarginBellDialog implements SelectionListener, KeyListener {
-        private final Shell shell;
-        private final Button okButton;
-        private final Spinner spinner;
-
-        private PageMarginBellDialog(Shell parentShell) {
-            shell = new Shell(parentShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-            shell.setText("Bell Page");
-            shell.setLayout(new GridLayout(3, true));
-
-            spinner = new Spinner(shell, 0);
-            spinner.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            spinner.setValues(bzStyledText.getPageMarginBell(), 0, 27720, 0, 1, 10);
-            spinner.addKeyListener(this);
-
-            okButton = new Button(shell, SWT.PUSH);
-            okButton.setText("OK");
-            okButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            okButton.addSelectionListener(this);
-
-            Button cancelButton = new Button(shell, SWT.PUSH);
-            cancelButton.setText("Cancel");
-            cancelButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-            cancelButton.addSelectionListener(this);
-
-            shell.pack();
-            shell.open();
-        }
-
-        private void setBellPageMargin() {
-            bzStyledText.setPageMarginBell(spinner.getSelection());
-        }
-
-        @Override
-        public void widgetSelected(SelectionEvent event) {
-            if (event.widget == okButton)
-                setBellPageMargin();
-            shell.dispose();
-        }
-
-        @Override
-        public void widgetDefaultSelected(SelectionEvent ignored) {
-        }
-
-        @Override
-        public void keyPressed(KeyEvent event) {
-            if (event.keyCode == '\r' || event.keyCode == '\n') {
-                setBellPageMargin();
-                shell.dispose();
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent ignored) {
+            new SpinnerDialog(parentShell, "Bell Page", bzStyledText.getPageMarginBell(), 0, 27720, bzStyledText::setPageMarginBell);
         }
     }
 
