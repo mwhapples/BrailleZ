@@ -142,7 +142,7 @@ public final class BZSettings extends BZBase {
         //   check for duplicates
         removeRecentFile(fileName);
 
-        recentFiles.add(0, fileName);
+        recentFiles.addFirst(fileName);
         if (recentFiles.size() > 6) {
             recentFiles.subList(6, recentFiles.size()).clear();
         }
