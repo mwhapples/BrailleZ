@@ -38,7 +38,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -97,7 +97,7 @@ public final class BZMenu extends BZBase {
 
         if (bzSettings != null) {
             recentFilesMenu = new Menu(menu);
-            ArrayList<String> recentFiles = bzSettings.getRecentFiles();
+            List<String> recentFiles = bzSettings.getRecentFiles();
             for (String fileName : recentFiles)
                 new OpenRecentHandler().addMenuItemTo(recentFilesMenu, fileName);
             new BaseAction().addSubMenuItemTo(menu, "Open Recent", recentFilesMenu);

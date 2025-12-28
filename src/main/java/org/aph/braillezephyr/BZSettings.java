@@ -1,4 +1,5 @@
-/* Copyright (C) 2015 American Printing House for the Blind Inc.
+/* Copyright (C) 2025 Michael Whapples.
+ * Copyright (C) 2015 American Printing House for the Blind Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -42,8 +44,8 @@ import java.util.ArrayList;
 public final class BZSettings extends BZBase {
     private final File file;
 
-    private final ArrayList<String> recentFiles = new ArrayList<>(31);
-    private int recentFilesMax = 31;
+    private int recentFilesMax = 6;
+    private final List<String> recentFiles = new ArrayList<>(recentFilesMax);
 
     private Point shellSize;
     private boolean shellMaximized;
@@ -122,7 +124,7 @@ public final class BZSettings extends BZBase {
         this(bzStyledText, null);
     }
 
-    ArrayList<String> getRecentFiles() {
+    List<String> getRecentFiles() {
         return recentFiles;
     }
 
@@ -142,10 +144,12 @@ public final class BZSettings extends BZBase {
         //   check for duplicates
         removeRecentFile(fileName);
 
-        recentFiles.addFirst(fileName);
-        if (recentFiles.size() > 6) {
-            recentFiles.subList(6, recentFiles.size()).clear();
+        // Trim first to prevent going over capacity and requiring list expansion.
+        if (recentFiles.size() >= recentFilesMax) {
+            recentFiles.subList(recentFilesMax - 1, recentFiles.size()).clear();
         }
+
+        recentFiles.addFirst(fileName);
     }
 
     private boolean readLine(String line) {
