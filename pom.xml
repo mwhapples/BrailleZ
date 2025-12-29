@@ -20,7 +20,7 @@
     </scm>
 
     <properties>
-        <revision>2025.0.0</revision>
+        <revision>2025.0.1</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
         <app.fsname>braillezephyr</app.fsname>
