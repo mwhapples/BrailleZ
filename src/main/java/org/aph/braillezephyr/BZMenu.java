@@ -336,9 +336,6 @@ public final class BZMenu extends BZBase {
 
             dialog.pack();
             dialog.open();
-            while (!dialog.isDisposed())
-                if (!dialog.getDisplay().readAndDispatch())
-                    dialog.getDisplay().sleep();
         }
     }
 
@@ -354,9 +351,6 @@ public final class BZMenu extends BZBase {
             text.setText(bzStyledText.getLogString());
 
             dialog.open();
-            while (!dialog.isDisposed())
-                if (!dialog.getDisplay().readAndDispatch())
-                    dialog.getDisplay().sleep();
         }
     }
 
