@@ -18,6 +18,7 @@ package org.aph.braillezephyr;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
+import org.jspecify.annotations.Nullable;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +33,7 @@ import java.nio.file.Path;
  * @author Mike Gray mgray@aph.org
  */
 public final class BZFile extends BZBase {
-    private String fileName;
+    private @Nullable String fileName;
 
     /**
      * <p>
@@ -45,7 +46,7 @@ public final class BZFile extends BZBase {
         super(bzStyledText);
     }
 
-    String getFileName() {
+    @Nullable String getFileName() {
         return fileName;
     }
 

@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.jspecify.annotations.Nullable;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -252,8 +253,8 @@ public final class BZMenu extends BZBase {
         return recentFilesMenu;
     }
 
-    private void addRecentFile(String fileName) {
-        if (bzSettings != null) {
+    private void addRecentFile(@Nullable String fileName) {
+        if (bzSettings != null && fileName != null) {
             bzSettings.addRecentFile(fileName);
         }
     }

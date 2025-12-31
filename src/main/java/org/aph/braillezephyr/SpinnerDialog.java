@@ -24,20 +24,21 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Spinner;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.IntConsumer;
 
 final class SpinnerDialog implements SelectionListener, KeyListener {
     private final Shell shell;
-    private final Button okButton;
-    private final Spinner spinner;
-    private final IntConsumer onChange;
+    private final @NonNull Button okButton;
+    private final @NonNull Spinner spinner;
+    private final @NonNull IntConsumer onChange;
 
     public SpinnerDialog(Shell parentShell, String title, int value, int minimum, int maximum, IntConsumer onChange) {
         this(parentShell, title, value, minimum, maximum, 0, 1, 10, onChange);
     }
 
-    public SpinnerDialog(Shell parentShell, String title, int value, int minimum, int maximum, int digits, int increment, int pageIncrement, IntConsumer onChange) {
+    public SpinnerDialog(Shell parentShell, String title, int value, int minimum, int maximum, int digits, int increment, int pageIncrement, @NonNull IntConsumer onChange) {
         this.onChange = onChange;
         shell = new Shell(parentShell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
         shell.setText(title);

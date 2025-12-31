@@ -25,6 +25,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.jspecify.annotations.NonNull;
 
 import javax.sound.sampled.*;
 import java.io.*;
@@ -44,7 +45,7 @@ import java.util.List;
 public class BZStyledText {
     private static final char PARAGRAPH_END = 0xfeff;
 
-    private final Shell parentShell;
+    private final @NonNull Shell parentShell;
     private final Composite composite;
     private final StyledText brailleText, asciiText;
     private final StyledTextContent content;
@@ -87,7 +88,7 @@ public class BZStyledText {
      *
      * @param parentShell parentShell of the new instance (cannot be null)
      */
-    public BZStyledText(Shell parentShell) {
+    public BZStyledText(@NonNull Shell parentShell) {
         this.parentShell = parentShell;
 
         //   version from jar manifest
@@ -226,7 +227,7 @@ public class BZStyledText {
         }
     }
 
-    Shell getParentShell() {
+    @NonNull Shell getParentShell() {
         return parentShell;
     }
 
