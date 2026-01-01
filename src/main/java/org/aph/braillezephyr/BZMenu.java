@@ -220,7 +220,7 @@ public final class BZMenu extends BZBase {
         item.setText("&Help");
         item.setMenu(menu);
 
-        addMenuItemTo(menu, "About", e -> new AboutDialog(parentShell));
+        addMenuItemTo(menu, "About", e -> showAboutDialog(parentShell));
         //TODO:  hide on non-development version
         addMenuItemTo(menu, "View Log", e -> showLogViewerDialog(parentShell));
     }
@@ -295,48 +295,46 @@ public final class BZMenu extends BZBase {
         }
     }
 
-    private final class AboutDialog {
-        private AboutDialog(Shell parentShell) {
-            Shell dialog = new Shell(parentShell, SWT.DIALOG_TRIM | SWT.PRIMARY_MODAL);
-            dialog.setLayout(new GridLayout(1, true));
-            dialog.setText("About BrailleZephyr");
+    private void showAboutDialog(Shell parentShell) {
+        Shell dialog = new Shell(parentShell, SWT.DIALOG_TRIM | SWT.PRIMARY_MODAL);
+        dialog.setLayout(new GridLayout(1, true));
+        dialog.setText("About BrailleZephyr");
 
-            String versionString = bzStyledText.getVersionString();
-            if (versionString == null) {
-                versionString = "dev";
-            }
-
-            Label label;
-
-            try (InputStream imageStream = getClass().getResourceAsStream("/icons/BrailleZephyr-icon-128x128.png")) {
-                Image image = new Image(parentShell.getDisplay(), imageStream);
-                label = new Label(dialog, SWT.CENTER);
-                label.setLayoutData(new GridData(GridData.FILL_BOTH));
-                label.setImage(image);
-            } catch (IOException e) {
-                logError("Unable to load icon", e);
-                throw new RuntimeException("Unable to load icon", e);
-            }
-            new Label(dialog, SWT.SEPARATOR | SWT.HORIZONTAL).setLayoutData(new GridData(GridData.FILL_BOTH));
-
-            label = new Label(dialog, SWT.CENTER);
-            label.setLayoutData(new GridData(GridData.FILL_BOTH));
-            label.setFont(new Font(parentShell.getDisplay(), "Sans", 14, SWT.BOLD));
-            label.setText("BrailleZephyr " + versionString);
-
-            label = new Label(dialog, SWT.CENTER);
-            label.setLayoutData(new GridData(GridData.FILL_BOTH));
-            label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
-            label.setText("Editor for BRF documents");
-
-            label = new Label(dialog, SWT.CENTER);
-            label.setLayoutData(new GridData(GridData.FILL_BOTH));
-            label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
-            label.setText("Copyright © 2025 Michael Whapples.\nCopyright © 2015 American Printing House for the Blind Inc.");
-
-            dialog.pack();
-            dialog.open();
+        String versionString = bzStyledText.getVersionString();
+        if (versionString == null) {
+            versionString = "dev";
         }
+
+        Label label;
+
+        try (InputStream imageStream = getClass().getResourceAsStream("/icons/BrailleZephyr-icon-128x128.png")) {
+            Image image = new Image(parentShell.getDisplay(), imageStream);
+            label = new Label(dialog, SWT.CENTER);
+            label.setLayoutData(new GridData(GridData.FILL_BOTH));
+            label.setImage(image);
+        } catch (IOException e) {
+            logError("Unable to load icon", e);
+            throw new RuntimeException("Unable to load icon", e);
+        }
+        new Label(dialog, SWT.SEPARATOR | SWT.HORIZONTAL).setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        label = new Label(dialog, SWT.CENTER);
+        label.setLayoutData(new GridData(GridData.FILL_BOTH));
+        label.setFont(new Font(parentShell.getDisplay(), "Sans", 14, SWT.BOLD));
+        label.setText("BrailleZephyr " + versionString);
+
+        label = new Label(dialog, SWT.CENTER);
+        label.setLayoutData(new GridData(GridData.FILL_BOTH));
+        label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
+        label.setText("Editor for BRF documents");
+
+        label = new Label(dialog, SWT.CENTER);
+        label.setLayoutData(new GridData(GridData.FILL_BOTH));
+        label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
+        label.setText("Copyright © 2025 Michael Whapples.\nCopyright © 2015 American Printing House for the Blind Inc.");
+
+        dialog.pack();
+        dialog.open();
     }
 
     private void showLogViewerDialog(Shell parentShell) {
