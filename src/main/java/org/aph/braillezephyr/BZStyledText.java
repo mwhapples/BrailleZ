@@ -181,7 +181,7 @@ public class BZStyledText {
         brailleText = new StyledText(composite, SWT.BORDER | SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
         brailleText.setLayoutData(new GridData(GridData.FILL_BOTH));
         brailleText.setFont(new Font(parentShell.getDisplay(), "BrailleZephyr_6s", 18, SWT.NORMAL));
-        brailleText.addFocusListener(new FocusHandler(brailleText));
+        brailleText.addListener(SWT.FocusIn, e -> currentText = brailleText);
         brailleText.addPaintListener(new PaintHandler(brailleText));
         BrailleKeyHandler brailleKeyHandler = new BrailleKeyHandler(true);
         brailleText.addKeyListener(brailleKeyHandler);
@@ -194,7 +194,7 @@ public class BZStyledText {
         asciiText.setContent(content);
         asciiText.setLayoutData(new GridData(GridData.FILL_BOTH));
         asciiText.setFont(new Font(parentShell.getDisplay(), "Monospace", 18, SWT.NORMAL));
-        asciiText.addFocusListener(new FocusHandler(asciiText));
+        asciiText.addListener(SWT.FocusIn, e -> currentText = asciiText);
         asciiText.addPaintListener(new PaintHandler(asciiText));
         asciiText.addVerifyKeyListener(new BrailleKeyHandler(false));
         asciiText.addExtendedModifyListener(new ExtendedModifyHandler(asciiText));
@@ -1021,23 +1021,6 @@ public class BZStyledText {
         }
 
         clearChanges();
-    }
-
-    private final class FocusHandler implements FocusListener {
-        private final StyledText source;
-
-        private FocusHandler(StyledText source) {
-            this.source = source;
-        }
-
-        @Override
-        public void focusGained(FocusEvent ignored) {
-            currentText = source;
-        }
-
-        @Override
-        public void focusLost(FocusEvent ignored) {
-        }
     }
 
     private final class CaretHandler implements CaretListener {
