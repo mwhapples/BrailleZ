@@ -20,9 +20,9 @@
     </scm>
 
     <properties>
-        <revision>2026.0.0</revision>
+        <revision>2026.0.1</revision>
         <sha1/>
-        <changelist></changelist>
+        <changelist>-SNAPSHOT</changelist>
         <app.fsname>braillezephyr</app.fsname>
         <app.vendor-fsname>mwhapples</app.vendor-fsname>
         <app.contact-email>software@mdw.onl</app.contact-email>
