@@ -52,6 +52,7 @@ public final class Main {
         shell = new Shell(display);
         shell.setLayout(new FillLayout());
         shell.setText("BrailleZ");
+        shell.setImage(Icons.loadIcon(shell.getDisplay(), (msg, e) -> {}));
         shell.addListener(SWT.Close, e -> e.doit = checkClosing());
 
         final BZStyledText bzStyledText = new BZStyledText(shell);

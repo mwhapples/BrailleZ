@@ -31,7 +31,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -307,15 +306,10 @@ public final class BZMenu extends BZBase {
 
         Label label;
 
-        try (InputStream imageStream = getClass().getResourceAsStream("/icons/BrailleZephyr-icon-128x128.png")) {
-            Image image = new Image(parentShell.getDisplay(), imageStream);
-            label = new Label(dialog, SWT.CENTER);
-            label.setLayoutData(new GridData(GridData.FILL_BOTH));
-            label.setImage(image);
-        } catch (IOException e) {
-            logError("Unable to load icon", e);
-            throw new RuntimeException("Unable to load icon", e);
-        }
+        label = new Label(dialog, SWT.CENTER);
+        label.setLayoutData(new GridData(GridData.FILL_BOTH));
+        Image image = Icons.loadIcon(parentShell.getDisplay(), this::logError);
+        label.setImage(image);
         new Label(dialog, SWT.SEPARATOR | SWT.HORIZONTAL).setLayoutData(new GridData(GridData.FILL_BOTH));
 
         label = new Label(dialog, SWT.CENTER);
