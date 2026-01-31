@@ -5,28 +5,28 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>onl.mdw</groupId>
-    <artifactId>braille-zephyr</artifactId>
+    <artifactId>braillez</artifactId>
     <version>${revision}${sha1}${changelist}</version>
-    <name>BrailleZephyr</name>
+    <name>BrailleZ</name>
     <description>A simple Braille Ready File (BRF) editor.</description>
     <organization>
         <name>Michael Whapples</name>
     </organization>
-    <url>https://mwhapples.github.io/BrailleZephyr</url>
+    <url>https://mwhapples.github.io/BrailleZ</url>
     <scm>
-        <connection>scm:git:https://github.com/mwhapples/BrailleZephyr.git</connection>
-        <developerConnection>scm:git:https://github.com/mwhapples/BrailleZephyr.git</developerConnection>
-        <url>https://github.com/mwhapples/BrailleZephyr</url>
+        <connection>scm:git:https://github.com/mwhapples/BrailleZ.git</connection>
+        <developerConnection>scm:git:https://github.com/mwhapples/BrailleZ.git</developerConnection>
+        <url>https://github.com/mwhapples/BrailleZ</url>
     </scm>
 
     <properties>
         <revision>2026.0.1</revision>
         <sha1/>
         <changelist>-SNAPSHOT</changelist>
-        <app.fsname>braillezephyr</app.fsname>
+        <app.fsname>braillez</app.fsname>
         <app.vendor-fsname>mwhapples</app.vendor-fsname>
         <app.contact-email>software@mdw.onl</app.contact-email>
-        <app.rdns-name>onl.mdw.braillezephyr</app.rdns-name>
+        <app.rdns-name>onl.mdw.braillez</app.rdns-name>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -131,7 +131,7 @@
                     <outputDirectory>${distDirectory}</outputDirectory>
                     <archive>
                         <manifest>
-                            <mainClass>org.aph.braillezephyr.Main</mainClass>
+                            <mainClass>onl.mdw.braillez.Main</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                     </archive>
@@ -150,11 +150,11 @@
                 <configuration>
                     <executable>java</executable>
                     <arguments>
-                        <argument>-Dbraillezephyr.version=${project.version}</argument>
+                        <argument>-Dbraillez.version=${project.version}</argument>
                         <argument>--enable-native-access=ALL-UNNAMED</argument>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <argument>org.aph.braillezephyr.Main</argument>
+                        <argument>onl.mdw.braillez.Main</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -183,12 +183,12 @@
                         <configuration>
                             <executable>java</executable>
                             <arguments>
-                                <argument>-Dbraillezephyr.version=${project.version}</argument>
+                                <argument>-Dbraillez.version=${project.version}</argument>
                                 <argument>-XstartOnFirstThread</argument>
                                 <argument>--enable-native-access=ALL-UNNAMED</argument>
                                 <argument>-classpath</argument>
                                 <classpath/>
-                                <argument>org.aph.braillezephyr.Main</argument>
+                                <argument>onl.mdw.braillez.Main</argument>
                             </arguments>
                         </configuration>
                     </plugin>
