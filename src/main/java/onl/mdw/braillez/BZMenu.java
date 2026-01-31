@@ -325,7 +325,28 @@ public final class BZMenu extends BZBase {
         label = new Label(dialog, SWT.CENTER);
         label.setLayoutData(new GridData(GridData.FILL_BOTH));
         label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
-        label.setText("Copyright © 2025 Michael Whapples.\nCopyright © 2015 American Printing House for the Blind Inc.");
+        label.setText("Copyright © 2025-2026 Michael Whapples.\nCopyright © 2015 American Printing House for the Blind Inc.");
+
+        label = new Label(dialog, SWT.CENTER);
+        label.setLayoutData(new GridData(GridData.FILL_BOTH));
+        label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
+        label.setText("""
+                This program is free software: you can redistribute it and/or modify
+                it under the terms of the GNU General Public License as published by
+                the Free Software Foundation, version 3 of the License.
+                
+                This program is distributed in the hope that it will be useful,
+                but WITHOUT ANY WARRANTY; without even the implied warranty of
+                MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+                GNU General Public License for more details.
+                
+                You should have received a copy of the GNU General Public License
+                along with this program.  If not, see <https://www.gnu.org/licenses/>.""");
+
+        label = new Label(dialog, SWT.CENTER);
+        label.setLayoutData(new GridData(GridData.FILL_BOTH));
+        label.setFont(new Font(parentShell.getDisplay(), "Sans", 10, SWT.NORMAL));
+        label.setText("BrailleZ is based on BrailleZephyr from American Printing House for the Blind which was published under the Apache 2.0 license.");
 
         dialog.pack();
         dialog.open();
