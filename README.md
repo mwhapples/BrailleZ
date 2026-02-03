@@ -13,7 +13,7 @@ BrailleZ is a simple Braille Ready File (BRF) editor
 
 ## Getting BrailleZ
 
-You can download binary builds of BrailleZ from the [download page](https://mwhapples.github.io/BrailleZ/download.html). If your platform does not have a binary build, there is a chance you may be able to build your own copy, see the below instructions for building.
+You can download binary builds of BrailleZ from the [download page](https://mwhapples.github.io/BrailleZ/download.html). Alternatively Windows users can find it in [the Microsoft Store](https://apps.microsoft.com/detail/9PJ223RQ7KBN). If your platform does not have a binary build, there is a chance you may be able to build your own copy, see the below instructions for building.
 
 ## Licence
 
