@@ -25,6 +25,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -58,7 +59,7 @@ public final class BZMenu extends BZBase {
      * @param bzFile       the bzFile object for file operations (cannot be null)
      * @param bzSettings   the bzSettings object for recent files.
      */
-    public BZMenu(BZStyledText bzStyledText, BZFile bzFile, BZSettings bzSettings) {
+    public BZMenu(@NonNull BZStyledText bzStyledText, BZFile bzFile, BZSettings bzSettings) {
         super(bzStyledText);
 
         this.bzSettings = bzSettings;

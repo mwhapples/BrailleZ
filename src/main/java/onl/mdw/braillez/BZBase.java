@@ -30,7 +30,7 @@ import org.jspecify.annotations.NonNull;
  */
 public class BZBase {
     protected final @NonNull BZStyledText bzStyledText;
-    protected final Shell parentShell;
+    protected final @NonNull Shell parentShell;
 
     public BZBase(@NonNull BZStyledText bzStyledText) {
         this.bzStyledText = bzStyledText;

@@ -45,7 +45,7 @@ public final class BZFile extends BZBase {
      *
      * @param bzStyledText the bzStyledText object to operate on (cannot be null)
      */
-    public BZFile(BZStyledText bzStyledText) {
+    public BZFile(@NonNull BZStyledText bzStyledText) {
         super(bzStyledText);
     }
 
