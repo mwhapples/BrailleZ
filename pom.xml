@@ -31,7 +31,7 @@
         <toolchain.jdk.version>[21,)</toolchain.jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <distDirectory>${project.build.directory}</distDirectory>
-        <swt.version>3.132.0</swt.version>
+        <swt.version>3.134.0</swt.version>
     </properties>
     <dependencyManagement>
         <dependencies>
